@@ -13,15 +13,14 @@ def clean_text(text):
 
 def process_blogtext(spark):
     df = spark.read.csv("/spring2021/project1/blogtext.csv", header=True, inferSchema=True)
-    import random
     rdd = df.rdd \
         .map(lambda x: x[6]) \
         .map(clean_text) \
         .flatMap(split_sentences) \
         .map(lambda x: x.split()) \
         .flatMap(tag_words) \
-        .map(lambda x: (x,1))
-        #.reduceByKey(lambda x,y:x+y)
+        .map(lambda x: (x,1)) \
+        .reduceByKey(lambda x,y:x+y)
     return rdd
 
 

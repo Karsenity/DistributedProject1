@@ -20,7 +20,14 @@ def split_sentences(text):
 
 def tag_words(text):
     import nltk
+
     return nltk.pos_tag(text)
+
+def lemmatize_words(words):
+    from nltk.stem import WordNetLemmatizer
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_words = [((lemmatizer.lemmatize(word[0][0]), word[0][1]), word[1]) for word in words]
+    fix_count =
 
 
 def process_hackerNews(spark):

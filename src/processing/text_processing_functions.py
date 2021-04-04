@@ -1,15 +1,13 @@
 import re
 import string
-
+import nltk
 
 def split_sentences(text):
     sentences = re.split('(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)(\s|[A-Z].*)',text)
     return [sent.translate(str.maketrans('', '', string.punctuation.replace("'",""))) for sent in sentences]
 
 def tag_words(text):
-    import nltk
-    tagged_words = nltk.pos_tag(text)
-    return text
+    return nltk.pos_tag(text)
 
 
 def write_csv(results, filepath):
