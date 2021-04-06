@@ -21,8 +21,7 @@ def process_blogtext(spark):
         .flatMap(tag_words) \
         .map(lambda x: (x,1)) \
         .reduceByKey(lambda x,y:x+y)
-    return rdd
-
+    return rdd.collect()
 
 
 def get_blogtext_df(spark, override=False):
@@ -31,6 +30,8 @@ def get_blogtext_df(spark, override=False):
     filepath = "./parsed_text/blogtext_wc.csv"
     if not path.exists(filepath) or override==True:
         results = process_blogtext(spark)
-        write_csv(results, filepath, )
+        lemmatized_results = lemmatize_words(results)
+        write_csv(lemmatized_results, filepath)
     df = pd.read_csv(filepath, names=["Word", "POS", "Count"])
     return df
+
