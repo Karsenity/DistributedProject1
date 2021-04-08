@@ -15,7 +15,7 @@ def split_sentences(text):
 :return: list((str,str))
 """
 def tag_words(text):
-    return nltk.pos_tag(text)
+    return nltk.pos_tag(text, tagset="universal")
 
 
 """
